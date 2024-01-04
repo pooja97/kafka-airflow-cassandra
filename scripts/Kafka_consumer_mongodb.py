@@ -22,7 +22,7 @@ class MongoDBConnector:
             logger.warning(f"collection {self.collection_name} already exists")
 
 
-    def insert_data(self, email, otp):
+    def insert_data(self, email, otp):                                                                                                                                                          
         document = {
             "email" : email,
             "otp" : otp 
@@ -94,3 +94,4 @@ def kafka_consumer_mongodb_main():
 
 
     
+                                        

@@ -73,7 +73,7 @@ x-airflow-common:
     AIRFLOW__SCHEDULER__DAG_DIR_LIST_INTERVAL: 30
     # Below will help us use EmailOperator properly. I will explain this in the second part.
     AIRFLOW__SMTP__SMTP_HOST: 'smtp.gmail.com' 
-    AIRFLOW__SMTP__SMTP_MAIL_FROM: 'sample_email@my_email.com' 
+    AIRFLOW__SMTP__SMTP_MAIL_FROM: 'poojayadav121997@gmail.com' 
     AIRFLOW__SMTP__SMTP_USER: 'sample_email@my_email.com' 
     AIRFLOW__SMTP__SMTP_PASSWORD: 'your_password' 
     AIRFLOW__SMTP__SMTP_PORT: '587'
