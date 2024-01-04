@@ -1,0 +1,33 @@
+from confluent_kafka.admin import AdminClient, NewTopic 
+import logging 
+
+logging.basicConfig(level = logging.INFO,
+                    format = '%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+logger = logging.getLogger(__name__)
+
+admin_config ={
+    'bootstarp.severs': 'kafka1:19092,kafka2:19093,kafka3:19094',
+    'client.id': 'kafka_admin_client'
+}
+
+admin_client = AdminClient(admin_config)
+
+def kafka_create_topic_main():
+    '''
+    Check if topic email_topic exists or not. if not, create the topic
+    '''
+    topic_name = 'email_topic'
+    existing_topics = admin_client.list_topics().topics 
+    if topic_name in existing_topics:
+        return "already exists"
+    
+    new_topic = NewTopic(topic_name, num_partitions = 1, replication_factor = 3)
+    admin_client.create_topics([new_topic])
+    return "Successfully Created"
+
+
+if __name__ == '__main__':
+    result = kafka_create_topic_main()
+    logger.info(result)
+
