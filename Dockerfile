@@ -1,5 +1,5 @@
-# Use the Apache Airflow 2.7.1 image as the base image 
-FROM apache/airflow:2.7.1 
+# Use the Apache Airflow 2.8.0 image as the base image 
+FROM apache/airflow:2.8.0 
 
 # Switch to the "airflow" user 
 USER airflow 

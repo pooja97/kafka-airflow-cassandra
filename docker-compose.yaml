@@ -44,12 +44,14 @@
 #
 # Feel free to modify this file to suit your needs.
 ---
+version: '3.8'
+
 x-airflow-common:
   &airflow-common
   # In order to add custom dependencies or upgrade provider packages you can use your extended image.
   # Comment the image line, place your Dockerfile in the directory where you placed the docker-compose.yaml
   # and uncomment the "build" line below, Then run `docker-compose build` to build the images.
-  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.7.1}
+  image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.8.0}
   # build: .
   environment:
     &airflow-common-env
@@ -94,18 +96,18 @@ x-airflow-common:
       condition: service_healthy
 
 services:
-  install-requirements:
-    <<: *airflow-common
-    container_name: install-requirements
-    build:
-      context: .
-    volumes:
-      - ./requirements.txt:/requirements.txt
-    depends_on:
-      - postgres
-      - redis
-    networks:
-      - cassandra-kafka
+  # install-requirements:
+  #   <<: *airflow-common
+  #   container_name: install-requirements
+  #   build:
+  #     context: .
+  #   volumes:
+  #     - ./requirements.txt:/requirements.txt
+  #   depends_on:
+  #     - postgres
+  #     - redis
+  #   networks:
+  #     - cassandra-kafka
 
   postgres:
     image: postgres:13
@@ -271,6 +273,7 @@ services:
     # yamllint enable rule:line-length
     environment:
       <<: *airflow-common-env
+      _AIRFLOW_DB_UPGRADE: 'true'
       _AIRFLOW_DB_MIGRATE: 'true'
       _AIRFLOW_WWW_USER_CREATE: 'true'
       _AIRFLOW_WWW_USER_USERNAME: ${_AIRFLOW_WWW_USER_USERNAME:-airflow}
@@ -429,27 +432,27 @@ services:
       - kafka-network
       - cassandra-kafka
 
-  kafka-ui:
-    container_name: kafka-ui
-    image: provectuslabs/kafka-ui:latest
-    ports:
-      - 8888:8080
-    depends_on:
-      - kafka1
-      - kafka2
-      - kafka3
-      - schema-registry
-      - kafka-connect
-    environment:
-      KAFKA_CLUSTERS_0_NAME: local
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: PLAINTEXT://kafka1:19092,PLAINTEXT_HOST://kafka1:19092
-      KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
-      KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: connect
-      KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://kafka-connect:8083
-      DYNAMIC_CONFIG_ENABLED: 'true'
-    networks:
-      - kafka-network
-      - cassandra-kafka
+  # kafka-ui:
+  #   container_name: kafka-ui
+  #   image: provectuslabs/kafka-ui:latest
+  #   ports:
+  #     - 8888:8080
+  #   depends_on:
+  #     - kafka1
+  #     - kafka2
+  #     - kafka3
+  #     - schema-registry
+  #     - kafka-connect
+  #   environment:
+  #     KAFKA_CLUSTERS_0_NAME: local
+  #     KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: PLAINTEXT://kafka1:19092,PLAINTEXT_HOST://kafka1:19092
+  #     KAFKA_CLUSTERS_0_SCHEMAREGISTRY: http://schema-registry:8081
+  #     KAFKA_CLUSTERS_0_KAFKACONNECT_0_NAME: connect
+  #     KAFKA_CLUSTERS_0_KAFKACONNECT_0_ADDRESS: http://kafka-connect:8083
+  #     DYNAMIC_CONFIG_ENABLED: 'true'
+  #   networks:
+  #     - kafka-network
+  #     - cassandra-kafka
   
   cassandra:
     image: cassandra:latest
