@@ -1,0 +1,4 @@
+cassandra
+config/
+logs/
+plugins/

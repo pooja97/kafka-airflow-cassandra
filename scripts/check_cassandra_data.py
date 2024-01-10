@@ -42,4 +42,4 @@ def check_cassandra_main():
 #     check_cassandra_main()
 
 
-# https://hooks.slack.com/services/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
+# https://hooks.slack.com/services/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
