@@ -1,4 +1,4 @@
-from confluent_kafka import Cluster
+from cassandra.cluster import Cluster
 import logging 
 
 logging.basicConfig(level = logging.INFO, format = '%(asctime)s - %(levelname)s - %(message)s')
@@ -11,8 +11,8 @@ class CassandraConnector:
         self.session = self.cluster.connect() 
 
     def select_data(self,email):
-        query = "SELECT * FROM email_namespace.email_table WHERE email = %s"
-        result = self.session.execute(query,email)
+        query = "SELECT * FROM email_space.email_table WHERE email = %s"
+        result = self.session.execute(query,(email,))
 
         data_dict = {}
 
@@ -42,4 +42,3 @@ def check_cassandra_main():
 #     check_cassandra_main()
 
 
-# https://hooks.slack.com/services/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

@@ -7,7 +7,7 @@ logging.basicConfig(level = logging.INFO,
 logger = logging.getLogger(__name__)
 
 admin_config ={
-    'bootstarp.severs': 'kafka1:19092,kafka2:19093,kafka3:19094',
+    'bootstrap.servers': 'kafka1:19092,kafka2:19093,kafka3:19094',
     'client.id': 'kafka_admin_client'
 }
 
