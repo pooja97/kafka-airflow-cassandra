@@ -82,8 +82,7 @@ with DAG(dag_id = 'airflow_kafka_cassandra_mongodb', default_args=default_args, 
     username='webhook_app'
     )
 
-    create_new_topic >> [topic_created, topic_already_exists] >> kafka_producer
-    kafka_consumer_mongodb >> check_mongodb >> send_email_mongodb >> send_slack_mongodb
+    create_new_topic >> [topic_created, topic_already_exists] >> kafka_producer >> kafka_consumer_mongodb >> check_mongodb >> send_email_mongodb >> send_slack_mongodb
 
 
 

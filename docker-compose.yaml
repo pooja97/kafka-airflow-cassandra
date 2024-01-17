@@ -77,7 +77,7 @@ x-airflow-common:
     # Below will help us use EmailOperator properly. I will explain this in the second part.
     AIRFLOW__SMTP__SMTP_HOST: 'smtp.gmail.com' 
     AIRFLOW__SMTP__SMTP_MAIL_FROM: 'poojayadav121997@gmail.com' 
-    AIRFLOW__SMTP__SMTP_USER: 'sample_email@my_email.com' 
+    AIRFLOW__SMTP__SMTP_USER: 'poojayadav121997@gmail.com' 
     AIRFLOW__SMTP__SMTP_PASSWORD: 'wcay vulo ijqs faoi' 
     AIRFLOW__SMTP__SMTP_PORT: '587'
 

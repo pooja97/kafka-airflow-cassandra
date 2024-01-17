@@ -79,7 +79,7 @@ class KafkaConsumerWrapperMongoDB:
 def kafka_consumer_mongodb_main():
     mongodb_connector.create_collection()
     kafka_config={
-        'bootstrap_servers':'kafka1:19092, kafka2:19093, kafka3:19094',
+        'bootstrap.servers':'kafka1:19092, kafka2:19093, kafka3:19094',
         'group.id':'consumer_group',
         'auto.offset.reset':'earliest'
     }
